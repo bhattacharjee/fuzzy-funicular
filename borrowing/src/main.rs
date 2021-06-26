@@ -7,6 +7,7 @@ fn change_string(s: &mut String)
 {
     s.push_str(", changed");
 }
+
 fn main() {
     let mut s1 = String::from("Hello");
 

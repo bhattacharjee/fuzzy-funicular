@@ -1,1 +1,1 @@
-C:\Users\rbhatta1\dev\fuzzy-funicular\borrowing\target\debug\borrowing.exe: C:\Users\rbhatta1\dev\fuzzy-funicular\borrowing\src\main.rs
+/home/phantom/fuzzy-funicular/borrowing/target/debug/borrowing: /home/phantom/fuzzy-funicular/borrowing/src/main.rs
