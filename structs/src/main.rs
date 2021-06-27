@@ -29,6 +29,26 @@ fn build_user_2(username: String, email: String) -> User
     }
 }
 
+fn printing_debug_data()
+{
+    // Inherit from Debug that implements the Debug() function
+    #[derive(Debug)]
+    struct Rect
+    {
+        width:          u32,
+        height:         u32
+    }
+
+    let rect = Rect
+    {
+        width:          5,
+        height:         5
+    };
+
+    println!("This print will work because of Debug, rect is {:?}", rect);
+
+}
+
 fn main() {
     println!("Hello, world!");
 
@@ -60,4 +80,6 @@ fn main() {
      * This will fail because they are of different types
      * origin = black
      */
+
+     printing_debug_data();
 }
