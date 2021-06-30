@@ -73,6 +73,16 @@ enum Option<T>
 }
 */
 
+// Handing options in match
+fn plus_one(x: Option<i32>) -> Option<i32>
+{
+    return match x
+    {
+        None                =>  None,
+        Some(i)             =>  Some(i+1),
+    }
+}
+
 fn main() {
     let four = MyIpAddrKind::V4;
     let six = MyIpAddrKind::V6;
@@ -98,5 +108,28 @@ fn main() {
 
      let c = Coin::Quarter(UsState::Alabama);
      println!("value of {:?} is {}", c, value_in_cents(&c));
+     let five = Some(5);
+     let six = plus_one(five);
+     let none = plus_one(None);
+     println!("plus_one({:?}) = {:?} . None is {:?}", five, six, none);
 
+     // pattern matches must be exhaustive, but we can use
+     // _ to the rescue (acts as the default case)
+     let some_u8_value = 0u8;
+     match some_u8_value
+     {
+         0      =>  println!("zero"),
+         1      =>  println!("One"),
+         _      =>  println!("Something else"),
+     }
+
+
+     // the if-let saves us some typing. If we wanted to handle it
+     // using the regular match syntax, we will have to 
+     // add a _ case.
+     let some_u8_value = Some(3u8);
+     if let Some(3) = some_u8_value
+     {
+         println!("-- The value is 3");
+     };
 }
