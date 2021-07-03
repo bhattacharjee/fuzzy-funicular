@@ -1,5 +1,8 @@
 // Collections: vectors, strings, hashmaps and sets
 
+#![allow(unused)]
+
+use std::collections::HashMap;
 fn vectors() {
     println!("-------------------------------------------------------------------------");
     println!("                               VECTORS                                   ");
@@ -114,10 +117,92 @@ fn string_handling()
     let s = s1 + "-" + &s2 + "-" + &s3;
     // s1 is no longer valid, but s2 and s3 are
     println!("After concatenating three strings, {} = - + {} + {}", s, s2, s3);
+
+    /**
+     * let s1 = String::from("hello");
+     * This doesn't work, indexing strings in rust is not supported
+     * let h = s1[0];
+     */
+    // Strings in rust are a wrapper over Vec <u8>
+
+    let hello = String::from("Hola");
+    println!("Length of {} is {}", hello, hello.len());
+    let hello = String::from("Здравствуйте");
+    println!("Length of {} is {}", hello, hello.len());
+
+    for (i, &e) in hello.as_bytes().iter().enumerate()
+    {
+        println!("{} : {}", i, e);
+    }
+
+    // However slicing a string is possible
+    let mut hello = String::from("Здравствуйте");
+    let slice = &hello[0..4];
+    println!("Taking a slice {} from {}", slice, hello);
+    let slice = &hello[2..4];
+    println!("Taking a slice {} from {}", slice, hello);
+    // However, the following line will panic
+    // let slice = &hello[1..4];
+
+    /////////////////////////////////////////////////////////////////////
+    // better way to iterate over strings
+    /////////////////////////////////////////////////////////////////////
+    for (i, c) in hello.chars().enumerate()
+    {
+        println!("char {} at index {}", c, i);
+    }
+    for b in "नमस्ते".bytes()
+    {
+        println!("{}", b);
+    }
+    for b in "नमस्ते".chars()
+    {
+        println!("{}", b);
+    }
+    println!("{}", "नमस्ते");
+}
+
+fn hashmap_handling()
+{
+    println!("-------------------------------------------------------------------------");
+    println!("                             HASHMAPS                                    ");
+    println!("-------------------------------------------------------------------------");
+
+    let mut scores = std::collections::HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+
+    let mut scores = std::collections::HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Another way of constructing hashmaps
+    //////////////////////////////////////////////////////////////////////////////////////
+    let teams = vec![String::from("Blue"), String::from("Red")];
+    let initial_scores = vec![10, 20];
+    let mut scores: HashMap<_, _> = teams.into_iter().zip(initial_scores.into_iter()).collect();
+
+    // Ownership and hashmaps
+    // For types that implement Copy() like i32, the values will be copied
+    // For others, it will be moved
+    let field_name = String::from("Favorite color");
+    let field_value = String::from("Blue");
+    let mut map = HashMap::new();
+    map.insert(field_name, field_value);
+    // field_name and field_value are invalid at this point, try using them and
+    // see what compiler error you get!
+    // println!("The value of field_name is {}", field_name);
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Accessing values from a hashmap
+    //////////////////////////////////////////////////////////////////////////////////////
 }
 
 fn main()
 {
     vectors();
     string_handling();
+    hashmap_handling();
 }
