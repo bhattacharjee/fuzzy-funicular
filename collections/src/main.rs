@@ -1,6 +1,10 @@
 // Collections: vectors, strings, hashmaps and sets
 
 fn vectors() {
+    println!("-------------------------------------------------------------------------");
+    println!("                               VECTORS                                   ");
+    println!("-------------------------------------------------------------------------");
+
     // Create a vector
     let v: Vec<i32> = Vec::new();
 
@@ -70,7 +74,50 @@ fn vectors() {
 
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+// String functions
+fn string_handling()
+{
+    println!("-------------------------------------------------------------------------");
+    println!("                             STRINGS                                     ");
+    println!("-------------------------------------------------------------------------");
+
+    // create a string
+    let mut s = String::from("Hello ");
+    // modify it
+    s.push_str(" world");
+    println!("The pushed string is {}", s);
+
+    let mut s = "Hello".to_string();
+    let s2 = "bar";
+    s.push_str(s2);
+    println!("{}", s);
+    println!("{}", s2); // This works because it is a slice and is passed as reference
+
+    // Push a single character with push
+    s.push('l');
+    println!("after pushing a single character: {}", s);
+
+    ////////////////////////////////////////////////////////////////////////////////////
+    // String concatenation
+    let s1 = String::from("Hello, ");
+    let s2 = String::from("world!");
+    // Note that the second term must be a slice
+    let s3 = s1 + &s2; // note s1 has been moved here and can no longer be used
+    // The following line no longer works because s1 is no longer valid as it was moved
+    // println!("{} = {} + {}", s1, s2, s3);
+
+    // Concatenate multiple strings
+    let s1 = String::from("tic");
+    let s2 = String::from("tac");
+    let s3 = String::from("toe");
+    let s = s1 + "-" + &s2 + "-" + &s3;
+    // s1 is no longer valid, but s2 and s3 are
+    println!("After concatenating three strings, {} = - + {} + {}", s, s2, s3);
+}
+
 fn main()
 {
     vectors();
+    string_handling();
 }
