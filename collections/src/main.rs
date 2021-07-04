@@ -198,6 +198,60 @@ fn hashmap_handling()
     //////////////////////////////////////////////////////////////////////////////////////
     // Accessing values from a hashmap
     //////////////////////////////////////////////////////////////////////////////////////
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+    let team_name = String::from("Blue");
+    let score = scores.get(&team_name);
+    match score
+    {
+        Some(n)     => println!("Found score as {}", n),
+        None            => println!("Found nothing"),
+    }
+    // Iterating over hashmap
+    let mut count = 0;
+    for (key, val) in scores
+    {
+        println!("{}. Scores key = {} val = {}", count, key, val);
+        count += 1;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // Updating a hash
+    // 1. Overwrite a value
+    // 2. Only insert if key has no value
+    // 3. Update a value based on an old value
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    // 1. Overwrite a value
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Blue"), 25);
+    println!("{:?}", scores);
+    // We get Blue: 25 here
+
+    // 2. Only insert if key has no value
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.entry(String::from("Yellow")).or_insert(50);
+    scores.entry(String::from("Blue")).or_insert(50);
+    println!("{:?}", scores);
+
+    // 3. Update a value based on an old value
+    // In here we count how many times each word occurred
+    let text = "hello world wonderful world";
+    let mut map = HashMap::new();
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+    println!("{:?}", map);
+
+    // Hashing in Rust uses SIP hash. If this is slow, use a BuildHasher
+    // to specify a custom hash function that is faster
+    println!("Rust uses SIP hash");
+    println!("Use buildhasher to specify a hash function if sip hash is too slow");
+
 }
 
 fn main()
